@@ -1,0 +1,12 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: white;
+}
+
+.btn-success {
+  color: rgb(16, 143, 100);
+}
