@@ -7,6 +7,15 @@
     <input v-model="email" class="form-control" required />
     <label>電話:</label>
     <input v-model="phone" class="form-control" required />
+     <div class="custom-control custom-switch">
+      <input
+        type="checkbox"
+        id="customSwitch1"
+        v-model="complete"
+        class="custom-control-input"
+      />
+      <label class="custom-control-label" for="customSwitch1">已完成</label>
+    </div>
 
     <button class="btn btn-success add-btn ">更新</button>
     <button class="btn btn-secondary cancel-btn" @click="handleCancel">取消</button>
@@ -22,6 +31,7 @@ export default {
       name: '',
       email: '',
       phone: '',
+      complete:false,
       URL: 'http://localhost:3000/members/' + this.id,
     };
   },
@@ -33,6 +43,7 @@ export default {
         this.name = data.name;
         this.email = data.email;
         this.phone = data.phone;
+        this.complete = data.complete;
       });
   },
   methods: {
@@ -40,13 +51,14 @@ export default {
       this.name = '';
       this.email = '';
       this.phone = '';
+      this.complete = false;
       this.$router.push('/');
     },
     handleSubmit() {
       axios(this.URL, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify({ name: this.name, email: this.email, phone: this.phone }),
+        data: JSON.stringify({ name: this.name, email: this.email, phone: this.phone,complete:this.complete }),
       })
         .then(() => {
           this.$router.push('/');

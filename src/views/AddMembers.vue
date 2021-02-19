@@ -7,41 +7,56 @@
     <input v-model.trim="email" class="form-control" required />
     <label>電話:</label>
     <input v-model.trim="phone" class="form-control" required />
+    <label>狀態:</label>
+    <div class="custom-control custom-switch">
+      <input
+        type="checkbox"
+        id="customSwitch1"
+        v-model="complete"
+        class="custom-control-input"
+      />
+      <label class="custom-control-label" for="customSwitch1">已完成</label>
+    </div>
 
-    <button class="btn btn-success add-btn ">新增</button>
-    <button class="btn  btn-secondary cancel-btn" @click="handleCancel">取消</button>
+    <button class="btn btn-success add-btn">新增</button>
+    <button class="btn btn-secondary cancel-btn" @click="handleCancel">
+      取消
+    </button>
   </form>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      phone: '',
+      name: "",
+      email: "",
+      phone: "",
+      complete:false
     };
   },
   methods: {
     handleCancel() {
-      this.name = '';
-      this.email = '';
-      this.phone = '';
-      this.$router.push('/');
+      this.name = "";
+      this.email = "";
+      this.phone = "";
+      this.complete = false,
+      this.$router.push("/");
     },
     handleSubmit() {
       let member = {
         name: this.name,
         email: this.email,
         phone: this.phone,
+        complete:this.complete
       };
       axios
-        .post('http://localhost:3000/members', member)
+        .post("http://localhost:3000/members", member)
         .then(() => {
-          this.$router.push('/');
+          this.$router.push("/");
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     },
   },
 };
@@ -59,7 +74,6 @@ export default {
 label {
   display: block;
   font-size: 16px;
-  font-weight: 700;
   letter-spacing: 1px;
   margin: 20px 0 10px 0;
 }

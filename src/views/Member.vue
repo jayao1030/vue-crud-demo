@@ -5,14 +5,15 @@
       <router-link class="btn btn-info" :to="{ name: 'AddMembers' }">新增</router-link>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped  ">
-        <thead>
+    <div class="table-responsive ">
+      <table class="table  table-bordered table-striped text-center ">
+        <thead class="bg-light">
           <tr>
             <th>序號</th>
             <th>名稱</th>
             <th>信箱</th>
             <th>電話</th>
+            <th>狀態</th>
             <th>設定</th>
           </tr>
         </thead>
@@ -22,6 +23,7 @@
             <td>{{ member.name }}</td>
             <td>{{ member.email }}</td>
             <td>{{ member.phone }}</td>
+            <td @complete="complete">{{ member.complete ?'完成':'未完成'}}</td>
             <td>
               <router-link :to="{ name: 'EditMembers', params: { id: member.id } }">
                 <span class="btn btn-success mr-3">編輯</span>
@@ -64,7 +66,7 @@ export default {
       if (confirm(`請確認是否要刪除 ${target.name}?`))
         axios
           .delete('http://localhost:3000/members/' + target.id)
-          .then(response => {
+          .then(res => {
             this.members.splice(index, 1);
           })
           .catch(err => console.log(err));
@@ -78,4 +80,7 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+
+</style>
